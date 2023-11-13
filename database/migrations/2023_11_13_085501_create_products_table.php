@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->string('title');
             $table->string('size');
             $table->string('color');
-            $table->foreignId('brand_id');
-            $table->foreignId('category_id');
+            $table->foreignId('brand_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->date('arrival_time');
             $table->timestamps();
         });
