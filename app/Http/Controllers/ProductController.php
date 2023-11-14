@@ -19,14 +19,14 @@ class ProductController extends Controller {
         $products = Product::with('brand', 'category');
         if ($request->query()) {
             foreach ($request->query() as $key => $value) {
-                if (!Schema::hasColumn('products', $key)) {
-                    continue;
-                } else if ($key == "search") {
+                if ($key == "search") {
                     $query[] = ["title", 'like', "%$value%"];
                 } else if ($key == "brand" || $key == "category") {
                     $products->whereHas($key, function ($q) use ($value) {
                         $q->where('title', 'like', "%$value%");
                     });
+                } else if (!Schema::hasColumn('products', $key) && ($key == "brand" || $key == "category")) {
+                    continue;
                 } else {
                     $query[] = [$key, '=', $value];
                 }
