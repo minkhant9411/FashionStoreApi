@@ -7,13 +7,15 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource {
+class ProductResource extends JsonResource
+{
     /**
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array {
+    public function toArray(Request $request): array
+    {
         return [
             "id" => $this->id,
             'title' => $this->title,
@@ -21,7 +23,7 @@ class ProductResource extends JsonResource {
             'color' => $this->color,
             'brand' => Brand::find($this->brand_id)->title,
             'category' => Category::find($this->category_id)->title,
-            'date of arrival' => $this->arrival_time,
+            'arrival_time' => $this->arrival_time,
         ];
     }
 }
