@@ -22,8 +22,8 @@ class CategoryController extends Controller {
     public function store(StoreCategoryRequest $request) {
         //
         $validated = $request->validated();
-        Category::create($validated);
-        return response(['message' => 'created successful'], 201);
+        $category = Category::create($validated);
+        return new CategoryResource($category);
     }
 
     /**
@@ -39,7 +39,7 @@ class CategoryController extends Controller {
     public function update(UpdateCategoryRequest $request, Category $category) {
         $validated = $request->validated();
         $category->update($validated);
-        return response(['message' => 'updated successfull'], 200);
+        return new CategoryResource($category);
     }
 
     /**
@@ -47,6 +47,6 @@ class CategoryController extends Controller {
      */
     public function destroy(Category $category) {
         $category->delete();
-        return response(['message' => 'deleted successful'], 200);
+        return new CategoryResource($category);
     }
 }
